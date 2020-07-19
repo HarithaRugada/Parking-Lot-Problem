@@ -1,34 +1,46 @@
 package com.parkinglot.service;
 
 import com.parkinglot.exception.ParkingLotException;
+import com.parkinglot.utility.ParkingOwner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingLot {
     public Object vehicle;
-    private int parkingLotCapacity;
-    private int currentParkingLotSize;
+    private final int parkingLotCapacity;
+    private int currentParkingLotSize = 0;
+    private ParkingOwner owner;
+    private List<Object> vehicleList;
 
     public ParkingLot(int parkingLotCapacity) {
         this.parkingLotCapacity = parkingLotCapacity;
+        this.vehicleList = new ArrayList<>();
     }
 
-    public ParkingLot() {
-    }
-
-    public boolean parkVehicle(Object vehicle) throws ParkingLotException {
-        if (this.currentParkingLotSize == this.parkingLotCapacity)
-            throw new ParkingLotException("Parking lot is full");
-        this.vehicle = vehicle;
-        currentParkingLotSize++;
-        return true;
+    public void parkVehicle(Object vehicle) throws ParkingLotException {
+        if (this.vehicleList.size() == this.parkingLotCapacity) {
+            owner.parkingFull();
+            throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.PARKING_FULL);
+        }
+        if (isVehicleParked(vehicle))
+            throw new ParkingLotException("Already Parked", ParkingLotException.ExceptionType.ALREADY_PARKED);
+        vehicleList.add(vehicle);
     }
 
     public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
-        if (this.vehicle != null && this.vehicle.equals(vehicle)) {
-            this.vehicle = null;
-            currentParkingLotSize--;
+        if (vehicleList.contains(vehicle)) {
+            vehicleList.remove(vehicle);
             return true;
         }
-        throw new ParkingLotException("Vehicle not found");
+        throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
+    public boolean isVehicleParked(Object vehicle) {
+        return this.vehicleList.contains(vehicle);
+    }
+
+    public void registerOwner(ParkingOwner owner) {
+        this.owner = owner;
+    }
 }
