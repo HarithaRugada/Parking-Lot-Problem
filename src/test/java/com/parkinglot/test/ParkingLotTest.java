@@ -2,8 +2,8 @@ package com.parkinglot.test;
 
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.service.ParkingLot;
-import com.parkinglot.utility.AirportSecurity;
-import com.parkinglot.utility.ParkingOwner;
+import com.parkinglot.observers.AirportSecurity;
+import com.parkinglot.observers.ParkingOwner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,11 +11,15 @@ import org.junit.Test;
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
     Object vehicle = null;
+    ParkingOwner parkingOwner = null;
+    AirportSecurity security = null;
 
     @Before
     public void setUp() {
         parkingLot = new ParkingLot(2);
         vehicle = new Object();
+        parkingOwner = new ParkingOwner();
+        security = new AirportSecurity();
     }
 
     @Test
@@ -31,6 +35,7 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(vehicle);
             parkingLot.parkVehicle(vehicle);
         } catch (ParkingLotException e) {
+            Assert.assertEquals("Already Parked", e.getMessage());
             System.out.println(e.getMessage());
         }
     }
@@ -46,18 +51,22 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenVehicle_WhenUnParked_ShouldReturnTrue() throws ParkingLotException {
-        parkingLot.parkVehicle(vehicle);
-        boolean isUnParked = parkingLot.unParkVehicle(vehicle);
-        Assert.assertTrue(isUnParked);
+    public void givenVehicle_WhenUnParked_ShouldReturnFalse() {
+        try {
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+            parkingLot.unParkVehicle(vehicle);
+            boolean isParked = parkingLot.isVehicleParked(vehicle);
+            Assert.assertFalse(isParked);
+        } catch (ParkingLotException e) {
+        }
     }
 
     @Test
     public void givenVehicleParked_AndWhenUnParkedAnotherVehicle_ShouldThrowException() {
         try {
             parkingLot.parkVehicle(vehicle);
-            boolean isUnParked = parkingLot.unParkVehicle(new Object());
-            Assert.assertFalse(isUnParked);
+            parkingLot.unParkVehicle(new Object());
         } catch (ParkingLotException e) {
             Assert.assertEquals("Vehicle not found", e.getMessage());
             System.out.println(e.getMessage());
@@ -78,47 +87,59 @@ public class ParkingLotTest {
 
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
-        ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLot.registerOwner(parkingOwner);
+        parkingLot.registerParkingLotObserver(parkingOwner);
         try {
             parkingLot.parkVehicle(vehicle);
             parkingLot.parkVehicle(new Object());
             parkingLot.parkVehicle(new Object());
-            boolean parkingFull = parkingOwner.parkingFull();
-            Assert.assertTrue(parkingFull);
         } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking lot is full", e.getMessage());
             System.out.println(e.getMessage());
         }
+        boolean parkingFull = parkingOwner.isParkingFull();
+        Assert.assertTrue(parkingFull);
     }
 
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToSecurity() {
-        AirportSecurity security = new AirportSecurity();
-        parkingLot.registerSecurity(security);
+        parkingLot.registerParkingLotObserver(security);
         try {
             parkingLot.parkVehicle(vehicle);
             parkingLot.parkVehicle(new Object());
-            boolean parkingFull = security.parkingFull();
-            Assert.assertTrue(parkingFull);
+            parkingLot.parkVehicle(new Object());
         } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking lot is full", e.getMessage());
             System.out.println(e.getMessage());
         }
+        boolean parkingFull = security.isParkingFull();
+        Assert.assertTrue(parkingFull);
     }
 
     @Test
     public void givenVehicle_WhenParkingAvailable_ShouldInformToOwner() {
-        ParkingOwner parkingOwner = new ParkingOwner();
-        parkingLot.registerOwner(parkingOwner);
+        parkingLot.registerParkingLotObserver(parkingOwner);
         try {
             parkingLot.parkVehicle(vehicle);
             parkingLot.parkVehicle(new Object());
-        } catch (ParkingLotException e) {
-        }
-        try {
             parkingLot.unParkVehicle(vehicle);
         } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking lot is available", e.getMessage());
         }
-        boolean parkingAvailable = parkingOwner.parkingAvailable();
-        Assert.assertTrue(parkingAvailable);
+        boolean parkingAvailable = parkingOwner.isParkingAvailable();
+        Assert.assertFalse(parkingAvailable);
+    }
+
+    @Test
+    public void givenVehicle_WhenParkingAvailable_ShouldInformToSecurity() {
+        parkingLot.registerParkingLotObserver(security);
+        try {
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+            parkingLot.unParkVehicle(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking lot is available", e.getMessage());
+        }
+        boolean parkingAvailable = security.isParkingAvailable();
+        Assert.assertFalse(parkingAvailable);
     }
 }

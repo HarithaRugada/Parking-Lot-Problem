@@ -2,7 +2,7 @@ package com.parkinglot.exception;
 
 public class ParkingLotException extends Exception {
     public enum ExceptionType {
-        PARKING_FULL, VEHICLE_NOT_FOUND, ALREADY_PARKED
+        PARKING_FULL, PARKING_AVAILABLE, VEHICLE_NOT_FOUND, ALREADY_PARKED
     }
 
     public ExceptionType type;
