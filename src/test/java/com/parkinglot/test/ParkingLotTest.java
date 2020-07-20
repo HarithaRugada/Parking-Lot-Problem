@@ -8,6 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
     Object vehicle = null;
@@ -22,6 +25,7 @@ public class ParkingLotTest {
         security = new AirportSecurity();
     }
 
+    //TC-1
     @Test
     public void givenVehicle_WhenParked_ShouldReturnTrue() throws ParkingLotException {
         parkingLot.parkVehicle(vehicle);
@@ -50,6 +54,7 @@ public class ParkingLotTest {
         Assert.assertTrue(isParked1 && isParked2);
     }
 
+    //TC-2
     @Test
     public void givenVehicle_WhenUnParked_ShouldReturnFalse() {
         try {
@@ -85,6 +90,7 @@ public class ParkingLotTest {
         }
     }
 
+    //TC-3
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToOwner() {
         parkingLot.registerParkingLotObserver(parkingOwner);
@@ -100,6 +106,7 @@ public class ParkingLotTest {
         Assert.assertTrue(parkingFull);
     }
 
+    //TC-4
     @Test
     public void givenVehicle_WhenParkingLotFull_ShouldInformToSecurity() {
         parkingLot.registerParkingLotObserver(security);
@@ -115,6 +122,7 @@ public class ParkingLotTest {
         Assert.assertTrue(parkingFull);
     }
 
+    //TC-5
     @Test
     public void givenVehicle_WhenParkingAvailable_ShouldInformToOwner() {
         parkingLot.registerParkingLotObserver(parkingOwner);
@@ -141,5 +149,26 @@ public class ParkingLotTest {
         }
         boolean parkingAvailable = security.isParkingAvailable();
         Assert.assertFalse(parkingAvailable);
+    }
+
+    //TC-6
+    @Test
+    public void givenParkingLot_WhenParkedWithProvidedSlot_ShouldReturnTrue() throws ParkingLotException {
+        parkingLot.setCapacity(10);
+        parkingLot.parkVehicle(0, vehicle);
+        boolean vehiclePark = parkingLot.isVehicleParked(vehicle);
+        Assert.assertTrue(vehiclePark);
+    }
+
+    @Test
+    public void givenParkingLot_WhenParkedWithProvidedSlot_AndAgainParkedInSameSlot_ShouldThrowException() {
+        try {
+            parkingLot.setCapacity(10);
+            parkingLot.parkVehicle(0, vehicle);
+            parkingLot.parkVehicle(4, vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Already Parked", e.getMessage());
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -5,9 +5,10 @@ import com.parkinglot.interfaces.IParkingLotObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ParkingLot {
-    private final int parkingLotCapacity;
+    private int parkingLotCapacity;
     private List<IParkingLotObserver> parkingLotObservers;
     private List<Object> vehicleList;
 
@@ -15,6 +16,10 @@ public class ParkingLot {
         this.parkingLotCapacity = parkingLotCapacity;
         this.vehicleList = new ArrayList<>();
         parkingLotObservers = new ArrayList<>();
+    }
+
+    public void setCapacity(int parkingLotCapacity) {
+        this.parkingLotCapacity = parkingLotCapacity;
     }
 
     public void parkVehicle(Object vehicle) throws ParkingLotException {
@@ -41,10 +46,32 @@ public class ParkingLot {
     }
 
     public boolean isVehicleParked(Object vehicle) {
-        return vehicleList.contains(vehicle);
+        return this.vehicleList.contains(vehicle);
     }
 
     public void registerParkingLotObserver(IParkingLotObserver observer) {
         this.parkingLotObservers.add(observer);
+    }
+
+    public int initializeParkingLot() {
+        IntStream.range(0, this.parkingLotCapacity).forEachOrdered(slots -> vehicleList.add(null));
+        return vehicleList.size();
+    }
+
+    public ArrayList getSlot() {
+        ArrayList<Integer> emptySlots = new ArrayList();
+        for (int slot = 0; slot < this.parkingLotCapacity; slot++) {
+            if (this.vehicleList.get(slot) == null)
+                emptySlots.add(slot);
+        }
+        return emptySlots;
+    }
+
+    public void parkVehicle(int slot, Object vehicle) throws ParkingLotException {
+        initializeParkingLot();
+        getSlot();
+        if (vehicleList.contains(vehicle))
+            throw new ParkingLotException("Already Parked", ParkingLotException.ExceptionType.ALREADY_PARKED);
+        vehicleList.add(slot, vehicle);
     }
 }
