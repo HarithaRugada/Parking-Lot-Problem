@@ -1,16 +1,16 @@
 package com.parkinglot.service;
 
 import com.parkinglot.exception.ParkingLotException;
+import com.parkinglot.utility.AirportSecurity;
 import com.parkinglot.utility.ParkingOwner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLot {
-    public Object vehicle;
     private final int parkingLotCapacity;
-    private int currentParkingLotSize = 0;
     private ParkingOwner owner;
+    private AirportSecurity security;
     private List<Object> vehicleList;
 
     public ParkingLot(int parkingLotCapacity) {
@@ -21,6 +21,7 @@ public class ParkingLot {
     public void parkVehicle(Object vehicle) throws ParkingLotException {
         if (this.vehicleList.size() == this.parkingLotCapacity) {
             owner.parkingFull();
+            security.parkingFull();
             throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.PARKING_FULL);
         }
         if (isVehicleParked(vehicle))
@@ -42,5 +43,9 @@ public class ParkingLot {
 
     public void registerOwner(ParkingOwner owner) {
         this.owner = owner;
+    }
+
+    public void registerSecurity(AirportSecurity security) {
+        this.security = security;
     }
 }

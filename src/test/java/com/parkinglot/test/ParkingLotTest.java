@@ -2,6 +2,7 @@ package com.parkinglot.test;
 
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.service.ParkingLot;
+import com.parkinglot.utility.AirportSecurity;
 import com.parkinglot.utility.ParkingOwner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,6 +85,20 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(new Object());
             parkingLot.parkVehicle(new Object());
             boolean parkingFull = parkingOwner.parkingFull();
+            Assert.assertTrue(parkingFull);
+        } catch (ParkingLotException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenVehicle_WhenParkingLotFull_ShouldInformToSecurity() {
+        AirportSecurity security = new AirportSecurity();
+        parkingLot.registerSecurity(security);
+        try {
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+            boolean parkingFull = security.parkingFull();
             Assert.assertTrue(parkingFull);
         } catch (ParkingLotException e) {
             System.out.println(e.getMessage());
