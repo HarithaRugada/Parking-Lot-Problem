@@ -31,6 +31,7 @@ public class ParkingLot {
 
     public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
         if (vehicleList.contains(vehicle)) {
+            owner.parkingAvailable();
             vehicleList.remove(vehicle);
             return true;
         }

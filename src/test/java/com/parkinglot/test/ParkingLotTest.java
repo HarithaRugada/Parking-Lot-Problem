@@ -104,4 +104,21 @@ public class ParkingLotTest {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void givenVehicle_WhenParkingAvailable_ShouldInformToOwner() {
+        ParkingOwner parkingOwner = new ParkingOwner();
+        parkingLot.registerOwner(parkingOwner);
+        try {
+            parkingLot.parkVehicle(vehicle);
+            parkingLot.parkVehicle(new Object());
+        } catch (ParkingLotException e) {
+        }
+        try {
+            parkingLot.unParkVehicle(vehicle);
+        } catch (ParkingLotException e) {
+        }
+        boolean parkingAvailable = parkingOwner.parkingAvailable();
+        Assert.assertTrue(parkingAvailable);
+    }
 }
