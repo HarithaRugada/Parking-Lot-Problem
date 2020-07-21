@@ -1,15 +1,12 @@
 package com.parkinglot.test;
 
 import com.parkinglot.exception.ParkingLotException;
-import com.parkinglot.service.ParkingLot;
 import com.parkinglot.observers.AirportSecurity;
 import com.parkinglot.observers.ParkingOwner;
+import com.parkinglot.service.ParkingLot;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
@@ -155,6 +152,8 @@ public class ParkingLotTest {
     @Test
     public void givenParkingLot_WhenParkedWithProvidedSlot_ShouldReturnTrue() throws ParkingLotException {
         parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLot.getSlot();
         parkingLot.parkVehicle(0, vehicle);
         boolean vehiclePark = parkingLot.isVehicleParked(vehicle);
         Assert.assertTrue(vehiclePark);
@@ -164,10 +163,39 @@ public class ParkingLotTest {
     public void givenParkingLot_WhenParkedWithProvidedSlot_AndAgainParkedInSameSlot_ShouldThrowException() {
         try {
             parkingLot.setCapacity(10);
+            parkingLot.initializeParkingLot();
+            parkingLot.getSlot();
             parkingLot.parkVehicle(0, vehicle);
             parkingLot.parkVehicle(4, vehicle);
         } catch (ParkingLotException e) {
             Assert.assertEquals("Already Parked", e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //TC-7
+    @Test
+    public void givenParkingLot_WhenVehicleFound_ShouldReturnVehicleSlot() throws ParkingLotException {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLot.getSlot();
+        parkingLot.parkVehicle(0, new Object());
+        parkingLot.parkVehicle(1, vehicle);
+        int slotNumber = parkingLot.findVehicle(this.vehicle);
+        Assert.assertEquals(1, slotNumber);
+    }
+
+    @Test
+    public void givenParkingLot_WhenVehicleNotFound_ShouldThrowException() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLot.getSlot();
+        try {
+            parkingLot.parkVehicle(0, new Object());
+            parkingLot.parkVehicle(1, vehicle);
+            parkingLot.findVehicle(new Object());
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Vehicle not found", e.getMessage());
             System.out.println(e.getMessage());
         }
     }

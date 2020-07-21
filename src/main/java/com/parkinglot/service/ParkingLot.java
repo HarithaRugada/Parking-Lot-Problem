@@ -53,25 +53,27 @@ public class ParkingLot {
         this.parkingLotObservers.add(observer);
     }
 
-    public int initializeParkingLot() {
+    public void initializeParkingLot() {
         IntStream.range(0, this.parkingLotCapacity).forEachOrdered(slots -> vehicleList.add(null));
-        return vehicleList.size();
     }
 
-    public ArrayList getSlot() {
+    public void getSlot() {
         ArrayList<Integer> emptySlots = new ArrayList();
         for (int slot = 0; slot < this.parkingLotCapacity; slot++) {
             if (this.vehicleList.get(slot) == null)
                 emptySlots.add(slot);
         }
-        return emptySlots;
     }
 
     public void parkVehicle(int slot, Object vehicle) throws ParkingLotException {
-        initializeParkingLot();
-        getSlot();
         if (vehicleList.contains(vehicle))
             throw new ParkingLotException("Already Parked", ParkingLotException.ExceptionType.ALREADY_PARKED);
         vehicleList.add(slot, vehicle);
+    }
+
+    public int findVehicle(Object vehicle) throws ParkingLotException {
+        if (this.vehicleList.contains(vehicle))
+            return this.vehicleList.indexOf(vehicle);
+        throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 }
