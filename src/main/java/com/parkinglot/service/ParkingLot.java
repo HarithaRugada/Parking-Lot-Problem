@@ -93,8 +93,12 @@ public class ParkingLot {
         throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public String getParkingTime(Object vehicle) {
-        String parkingTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
-        return parkingTime;
+    public boolean isTimeSet(Object vehicle) {
+        ParkingSlot parkingSlot = new ParkingSlot(vehicle);
+        for (int i = 0; i < this.vehicleList.size(); i++) {
+            if (this.vehicleList.get(i).time != null && this.vehicleList.contains(parkingSlot))
+                return true;
+        }
+        return false;
     }
 }

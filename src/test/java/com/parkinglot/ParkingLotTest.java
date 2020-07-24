@@ -1,8 +1,10 @@
 package com.parkinglot;
 
 import com.parkinglot.exception.ParkingLotException;
+import com.parkinglot.model.ParkingSlot;
 import com.parkinglot.observers.AirportSecurity;
 import com.parkinglot.observers.ParkingOwner;
+import com.parkinglot.service.LotParking;
 import com.parkinglot.service.ParkingLot;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
+    LotParking lotParking = null;
     Object vehicle = null;
     ParkingOwner parkingOwner = null;
     AirportSecurity security = null;
@@ -20,6 +23,7 @@ public class ParkingLotTest {
     @Before
     public void setUp() {
         parkingLot = new ParkingLot(2);
+        lotParking = new LotParking(5);
         vehicle = new Object();
         parkingOwner = new ParkingOwner();
         security = new AirportSecurity();
@@ -156,6 +160,7 @@ public class ParkingLotTest {
         try {
             parkingLot.parkVehicle(vehicle);
             parkingLot.parkVehicle(new Object());
+            parkingLot.parkVehicle(new Object());
             parkingLot.unParkVehicle(vehicle);
         } catch (ParkingLotException e) {
             Assert.assertEquals("Parking lot is available", e.getMessage());
@@ -196,13 +201,88 @@ public class ParkingLotTest {
 
     //TC-8
     @Test
-    public void givenVehicleForParking_WhenVehicleParkedTimeIsSet_ShouldReturnParkingTime() {
+    public void givenParkingLot_WhenVehicleParkedIfTimeIsSet_ShouldReturnTrue() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
         try {
-            parkingLot.setCapacity(10);
-            parkingLot.initializeParkingLot();
             parkingLot.parkVehicle(vehicle);
-            String parkingTime = parkingLot.getParkingTime(vehicle);
-            Assert.assertEquals(parkingTime, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
+            boolean isTimeSet = parkingLot.isTimeSet(vehicle);
+            Assert.assertTrue(isTimeSet);
+            Assert.assertEquals(new ParkingSlot(vehicle).time, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //TC-9
+    @Test
+    public void givenLotParking_WhenAddedLots_ShouldReturnTrue() {
+        ParkingLot parkingLot2 = new ParkingLot(5);
+        lotParking.addLot(parkingLot);
+        lotParking.addLot(parkingLot2);
+        Assert.assertTrue(lotParking.isLotAdded(parkingLot) && lotParking.isLotAdded(parkingLot2));
+    }
+
+    @Test
+    public void givenLotParking_WhenVehicleParkedOnLot_ShouldReturnTrue() {
+        lotParking.addLot(parkingLot);
+        parkingLot.setCapacity(1);
+        parkingLot.initializeParkingLot();
+        try {
+            lotParking.parkVehicle(vehicle);
+            boolean isVehiclePark = lotParking.isVehicleParked(vehicle);
+            Assert.assertTrue(isVehiclePark);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenLotParking_ShouldParkTheVehicles_InEvenDistribution() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        lotParking.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+        Object vehicle2 = new Object();
+        Object vehicle3 = new Object();
+        Object vehicle4 = new Object();
+        lotParking.addLot(parkingLot2);
+        try {
+            lotParking.parkVehicle(vehicle);
+            boolean isVehiclePark1 = lotParking.isVehicleParked(vehicle);
+            lotParking.parkVehicle(vehicle2);
+            boolean isVehiclePark2 = lotParking.isVehicleParked(vehicle2);
+            lotParking.parkVehicle(vehicle3);
+            boolean isVehiclePark3 = lotParking.isVehicleParked(vehicle3);
+            lotParking.parkVehicle(vehicle4);
+            boolean isVehiclePark4 = lotParking.isVehicleParked(vehicle4);
+            Assert.assertTrue(isVehiclePark1 && isVehiclePark2 && isVehiclePark3 && isVehiclePark4);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingLotSystem_WhenVehicleUnParked_ShouldReturnTrue() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        lotParking.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.setCapacity(10);
+        parkingLot2.initializeParkingLot();
+        Object vehicle2 = new Object();
+        Object vehicle3 = new Object();
+        Object vehicle4 = new Object();
+        lotParking.addLot(parkingLot2);
+        try {
+            lotParking.parkVehicle(vehicle);
+            lotParking.parkVehicle(vehicle2);
+            lotParking.parkVehicle(vehicle3);
+            lotParking.parkVehicle(vehicle4);
+            boolean isVehicleUnParked = lotParking.unParkVehicle(vehicle);
+            Assert.assertTrue(isVehicleUnParked);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
