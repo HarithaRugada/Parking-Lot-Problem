@@ -2,10 +2,9 @@ package com.parkinglot.service;
 
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotObserver;
+import com.parkinglot.interfaces.IParkingLotOnDriverType;
 import com.parkinglot.model.ParkingSlot;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -25,13 +24,12 @@ public class ParkingLot {
         this.parkingLotCapacity = parkingLotCapacity;
     }
 
-    public void parkVehicle(Object vehicle) throws ParkingLotException {
+    public void parkVehicle(Object vehicle, IParkingLotOnDriverType driverType) throws ParkingLotException {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         if (!this.vehicleList.contains(null)) {
             for (IParkingLotObserver observer : parkingLotObservers) {
                 observer.parkingFull();
             }
-            throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.PARKING_FULL);
         }
         if (isVehicleParked(vehicle))
             throw new ParkingLotException("Already Parked", ParkingLotException.ExceptionType.ALREADY_PARKED);
@@ -86,10 +84,10 @@ public class ParkingLot {
         throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public int findVehicle(Object vehicle) throws ParkingLotException {
+    public int findVehicleSlot(Object vehicle) throws ParkingLotException {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         if (this.vehicleList.contains(parkingSlot))
-            return this.vehicleList.indexOf(parkingSlot);
+            return this.vehicleList.indexOf(parkingSlot) + 1;
         throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ParkingSlot {
+    private Enum driverType;
     public String time;
     public Object vehicle;
 
