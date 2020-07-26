@@ -1,5 +1,6 @@
 package com.parkinglot.service;
 
+import com.parkinglot.enums.DriverType;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotObserver;
 import com.parkinglot.model.ParkingSlot;
@@ -104,27 +105,29 @@ public class ParkingLot {
         return vehicleCount;
     }
 
-    public List<Integer> findOnFieldColor(String color) {
-        List<Integer> fieldList = this.vehicleList
+    public List<String> findOnFieldColor(String color) {
+        List<String> fieldList = this.vehicleList
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle()
                         .getColor()
                         .equalsIgnoreCase(color))
-                .map(ParkingSlot::getSlot)
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
+                        + (parkingSlot.getVehicle().getColor())+ " "
+                        + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return fieldList;
     }
 
     public List<String> findOnTwoFields(String color, String modelName) {
-        List<String> fieldList1 = this.vehicleList
+        List<String> fieldList = this.vehicleList
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equalsIgnoreCase(modelName))
                 .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equalsIgnoreCase(color))
                 .map(parkingSlot -> (parkingSlot.getAttendantName()) + "  " + (parkingSlot.getSlot()))
                 .collect(Collectors.toList());
-        return fieldList1;
+        return fieldList;
     }
 
     public List<Integer> findOnFieldModelName(String modelName) {
@@ -143,7 +146,24 @@ public class ParkingLot {
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getTime().getMinute() - LocalDateTime.now().getMinute() <= 30)
-                .map(parkingSlot -> ((parkingSlot.getSlot())) + " " + (parkingSlot.getVehicle().getModelName()) + " " + (parkingSlot.getVehicle().getColor()))
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
+                        + (parkingSlot.getVehicle().getModelName()) + " "
+                        + (parkingSlot.getVehicle().getColor()))
+                .collect(Collectors.toList());
+        return parkingLotList;
+    }
+
+    public List<String> getVehiclesListOfSpecifiedType(DriverType type) {
+        List<String> parkingLotList = this.vehicleList
+                .stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot
+                        .getType()
+                .equals(type))
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
+                        + (parkingSlot.getVehicle().getModelName()) + " "
+                        + (parkingSlot.getVehicle().getColor())+ " "
+                        + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return parkingLotList;
     }

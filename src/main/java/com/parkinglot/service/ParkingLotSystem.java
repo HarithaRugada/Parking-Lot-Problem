@@ -48,8 +48,8 @@ public class ParkingLotSystem {
         throw new ParkingLotException("Vehicle Not Found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public List<List<Integer>> findVehicleByColor(String color) {
-        List<List<Integer>> parkingLotsList = this.parkingLots
+    public List<List<String>> findVehicleByColor(String color) {
+        List<List<String>> parkingLotsList = this.parkingLots
                 .stream()
                 .map(lot -> lot.findOnFieldColor(color))
                 .collect(Collectors.toList());

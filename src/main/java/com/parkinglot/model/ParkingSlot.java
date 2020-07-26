@@ -41,6 +41,10 @@ public class ParkingSlot {
         return time;
     }
 
+    public Enum getType(){
+        return type;
+    }
+
     public String getAttendantName() {
         return attendantName;
     }
