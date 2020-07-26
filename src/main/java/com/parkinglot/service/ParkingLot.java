@@ -113,7 +113,7 @@ public class ParkingLot {
                         .getColor()
                         .equalsIgnoreCase(color))
                 .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
-                        + (parkingSlot.getVehicle().getColor())+ " "
+                        + (parkingSlot.getVehicle().getColor()) + " "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return fieldList;
@@ -159,10 +159,23 @@ public class ParkingLot {
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot
                         .getType()
-                .equals(type))
+                        .equals(type))
                 .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
                         + (parkingSlot.getVehicle().getModelName()) + " "
-                        + (parkingSlot.getVehicle().getColor())+ " "
+                        + (parkingSlot.getVehicle().getColor()) + " "
+                        + (parkingSlot.getAttendantName()))
+                .collect(Collectors.toList());
+        return parkingLotList;
+    }
+
+    public List<String> getCompleteVehiclesList() {
+        List<String> parkingLotList = this.vehicleList
+                .stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
+                        + (parkingSlot.getVehicle().getModelName()) + " "
+                        + (parkingSlot.getVehicle().getColor()) + " "
+                        + (parkingSlot.getType()) + " "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return parkingLotList;

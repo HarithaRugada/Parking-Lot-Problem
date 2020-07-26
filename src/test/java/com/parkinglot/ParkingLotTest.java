@@ -638,4 +638,25 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
+    //TC-17
+    @Test
+    public void givenParkingLot_ShouldReturnTheListOfAllVehicles() {
+        parkingLot.setCapacity(20);
+        parkingLot.initializeParkingLot();
+        Vehicle firstVehicle = new Vehicle("black", "toyota");
+        Vehicle secondVehicle = new Vehicle("white", "BMW");
+        Vehicle thirdVehicle = new Vehicle("red", "audi");
+        Vehicle fourthVehicle = new Vehicle("white", "toyota");
+        try {
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, "abc");
+            parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, "pqr");
+            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL, "def");
+            List<String> vehicleList = parkingLot.getCompleteVehiclesList();
+            System.out.println(vehicleList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
