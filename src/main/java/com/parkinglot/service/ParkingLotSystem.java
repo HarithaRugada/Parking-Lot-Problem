@@ -1,5 +1,6 @@
 package com.parkinglot.service;
 
+import com.parkinglot.enums.DriverType;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotStrategy;
 import com.parkinglot.model.Vehicle;
@@ -70,6 +71,33 @@ public class ParkingLotSystem {
                 .stream()
                 .map(lot -> lot.findOnFieldModelName(modelName))
                 .collect(Collectors.toList());
+        return parkingLotsList;
+    }
+
+    public List<List<String>> findVehicleParkedLast30Minutes() {
+        List<List<String>> parkingLotsList = new ArrayList<>();
+        for (ParkingLot list : this.parkingLots) {
+            List<String> onField = list.getVehiclesWhichIsParkedFrom30Min();
+            parkingLotsList.add(onField);
+        }
+        return parkingLotsList;
+    }
+
+    public List<List<String>> findVehiclesBySpecifiedType(DriverType type) {
+        List<List<String>> parkingLotsList = new ArrayList<>();
+        for (ParkingLot list : this.parkingLots) {
+            List<String> onField = list.getVehiclesListOfSpecifiedType(type);
+            parkingLotsList.add(onField);
+        }
+        return parkingLotsList;
+    }
+
+    public List<List<String>> findAllVehicles() {
+        List<List<String>> parkingLotsList = new ArrayList<>();
+        for (ParkingLot list : this.parkingLots) {
+            List<String> onField = list.getCompleteVehiclesList();
+            parkingLotsList.add(onField);
+        }
         return parkingLotsList;
     }
 }

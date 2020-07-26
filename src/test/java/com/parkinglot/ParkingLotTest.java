@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.parkinglot.enums.DriverType.HANDICAP;
-
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
     ParkingLotSystem parkingLotSystem = null;
@@ -365,7 +363,7 @@ public class ParkingLotTest {
     //TC-10
     @Test
     public void givenParkingLotSystem_WhenDriverTypeIsHandicap_ShouldGiveNearestLot() {
-        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(HANDICAP);
+        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(DriverType.HANDICAP);
         List<ParkingLot> parkingLots1 = new ArrayList<>();
         ParkingLot parkingLot12 = new ParkingLot(1);
         parkingLot12.setCapacity(10);
@@ -415,11 +413,11 @@ public class ParkingLotTest {
 
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
-            parkingLotSystem.parkVehicle(new Vehicle("blue", "Chevrolet"), HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(new Vehicle("blue", "Chevrolet"), DriverType.HANDICAP, "XYZ");
             parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP, "XYZ");
             parkingLotSystem.parkVehicle(sixthVehicle, VehicleType.LARGE, "XYZ");
             boolean vehiclePark = parkingLotSystem.isVehicleParked(sixthVehicle);
             Assert.assertTrue(vehiclePark);
@@ -497,7 +495,7 @@ public class ParkingLotTest {
         Vehicle thirdVehicle = new Vehicle("blue", "toyota");
         Vehicle fourthVehicle = new Vehicle("white", "toyota");
         Vehicle fifthVehicle = new Vehicle("white", "BMW");
-        Vehicle vehicle6 = new Vehicle("blue", "toyota");
+        Vehicle sixthVehicle = new Vehicle("blue", "toyota");
         Vehicle seventhVehicle = new Vehicle("blue", "toyota");
         Vehicle eighthVehicle = new Vehicle("blue", "toyota");
         try {
@@ -506,7 +504,7 @@ public class ParkingLotTest {
             parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, "XYZ");
-            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
             List<List<String>> blueToyotaList = parkingLotSystem.findVehicleByTwoFields("blue", "toyota");
@@ -603,6 +601,41 @@ public class ParkingLotTest {
 
     //TC-15
     @Test
+    public void givenParkingLotSystem_ShouldReturnAllParkingListBefore30Min() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+        ParkingLot parkingLot3 = new ParkingLot(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+        Vehicle firstVehicle = new Vehicle("white", "toyota");
+        Vehicle secondVehicle = new Vehicle("blue", "BMW");
+        Vehicle thirdVehicle = new Vehicle("silver", "toyota");
+        Vehicle fourthVehicle = new Vehicle("white", "toyota");
+        Vehicle fifthVehicle = new Vehicle("white", "BMW");
+        Vehicle sixthVehicle = new Vehicle("blue", "toyota");
+        Vehicle seventhVehicle = new Vehicle("blue", "toyota");
+        Vehicle eighthVehicle = new Vehicle("red", "toyota");
+        try {
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
+            List<List<String>> vehicleList = parkingLotSystem.findVehicleParkedLast30Minutes();
+            System.out.println(vehicleList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenParkingLot_ShouldReturnAllParkingListBefore30Min() {
         parkingLot.setCapacity(20);
         parkingLot.initializeParkingLot();
@@ -622,7 +655,42 @@ public class ParkingLotTest {
 
     //TC-16
     @Test
-    public void givenVehiclesToPark_WhenAskedForSmallHandicapCars_ShouldReturnLocationAndInformation() {
+    public void givenParkingLotSystem_WhenAskedForHandicapCars_ShouldReturnTheList() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+        ParkingLot parkingLot3 = new ParkingLot(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+        Vehicle firstVehicle = new Vehicle("white", "toyota");
+        Vehicle secondVehicle = new Vehicle("blue", "BMW");
+        Vehicle thirdVehicle = new Vehicle("silver", "toyota");
+        Vehicle fourthVehicle = new Vehicle("white", "toyota");
+        Vehicle fifthVehicle = new Vehicle("white", "BMW");
+        Vehicle sixthVehicle = new Vehicle("blue", "toyota");
+        Vehicle seventhVehicle = new Vehicle("blue", "toyota");
+        Vehicle eighthVehicle = new Vehicle("red", "toyota");
+        try {
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
+            List<List<String>> vehicleList = parkingLotSystem.findVehiclesBySpecifiedType(DriverType.HANDICAP);
+            System.out.println(vehicleList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingLot_WhenAskedForHandicapCars_ShouldReturnTheList() {
         parkingLot.setCapacity(20);
         parkingLot.initializeParkingLot();
         Vehicle firstVehicle = new Vehicle("black", "toyota");
@@ -632,7 +700,7 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, "abc");
             parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP, "xyz");
             parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, "pqr");
-            List<String> vehicleList = parkingLot.getVehiclesListOfSpecifiedType(HANDICAP);
+            List<String> vehicleList = parkingLot.getVehiclesListOfSpecifiedType(DriverType.HANDICAP);
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -640,6 +708,41 @@ public class ParkingLotTest {
     }
 
     //TC-17
+    @Test
+    public void givenParkingLotSystem_ShouldReturnAllTheVehiclesList() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot2);
+        ParkingLot parkingLot3 = new ParkingLot(10);
+        parkingLot3.initializeParkingLot();
+        parkingLotSystem.addLot(parkingLot3);
+        Vehicle firstVehicle = new Vehicle("white", "toyota");
+        Vehicle secondVehicle = new Vehicle("blue", "BMW");
+        Vehicle thirdVehicle = new Vehicle("silver", "toyota");
+        Vehicle fourthVehicle = new Vehicle("white", "toyota");
+        Vehicle fifthVehicle = new Vehicle("white", "BMW");
+        Vehicle sixthVehicle = new Vehicle("blue", "toyota");
+        Vehicle seventhVehicle = new Vehicle("blue", "toyota");
+        Vehicle eighthVehicle = new Vehicle("red", "toyota");
+        try {
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
+            List<List<String>> vehicleList = parkingLotSystem.findAllVehicles();
+            System.out.println(vehicleList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void givenParkingLot_ShouldReturnTheListOfAllVehicles() {
         parkingLot.setCapacity(20);
