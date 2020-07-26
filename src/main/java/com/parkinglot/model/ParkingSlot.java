@@ -6,9 +6,14 @@ import java.time.format.DateTimeFormatter;
 public class ParkingSlot {
     private Enum type;
     public String time;
-    public Object vehicle;
+    public Vehicle vehicle;
 
-    public ParkingSlot(Object vehicle) {
+    public ParkingSlot(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
+    }
+
+    public ParkingSlot(Vehicle vehicle,Enum type) {
         this.vehicle = vehicle;
         this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
     }

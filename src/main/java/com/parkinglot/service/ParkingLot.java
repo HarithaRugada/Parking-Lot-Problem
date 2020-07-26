@@ -3,6 +3,7 @@ package com.parkinglot.service;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotObserver;
 import com.parkinglot.model.ParkingSlot;
+import com.parkinglot.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ParkingLot {
         this.parkingLotObservers.add(observer);
     }
 
-    public void parkVehicle(Object vehicle, Enum driverType) throws ParkingLotException {
+    public void parkVehicle(Vehicle vehicle, Enum type) throws ParkingLotException {
         if (!this.vehicleList.contains(null)) {
             for (IParkingLotObserver observer : parkingLotObservers) {
                 observer.parkingFull();
@@ -42,12 +43,12 @@ public class ParkingLot {
         vehicleCount++;
     }
 
-    public boolean isVehicleParked(Object vehicle) {
+    public boolean isVehicleParked(Vehicle vehicle) {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         return this.vehicleList.contains(parkingSlot);
     }
 
-    public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
+    public boolean unParkVehicle(Vehicle vehicle) throws ParkingLotException {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         for (int slotNumber = 0; slotNumber < this.vehicleList.size(); slotNumber++) {
             if (this.vehicleList.contains(parkingSlot)) {
@@ -76,7 +77,7 @@ public class ParkingLot {
         return emptySlots;
     }
 
-    public int getParkingSlot(Object vehicle) throws ParkingLotException {
+    public int getParkingSlot(Vehicle vehicle) throws ParkingLotException {
         ArrayList<Integer> emptySlotList = getSlotList();
         for (int slot = 0; slot < emptySlotList.size(); slot++) {
             if (emptySlotList.get(0) == (slot)) {
@@ -86,14 +87,14 @@ public class ParkingLot {
         throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public int findVehicleLot(Object vehicle) throws ParkingLotException {
+    public int findVehicleLot(Vehicle vehicle) throws ParkingLotException {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         if (this.vehicleList.contains(parkingSlot))
             return this.vehicleList.indexOf(parkingSlot) + 1;
         throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
-    public boolean isTimeSet(Object vehicle) {
+    public boolean isTimeSet(Vehicle vehicle) {
         ParkingSlot parkingSlot = new ParkingSlot(vehicle);
         for (int i = 0; i < this.vehicleList.size(); i++) {
             if (this.vehicleList.get(i).time != null && this.vehicleList.contains(parkingSlot))
@@ -104,5 +105,17 @@ public class ParkingLot {
 
     public int getVehicleCount() {
         return vehicleCount;
+    }
+
+    public ArrayList<Integer> findOnField(String fieldName) {
+        ArrayList<Integer> fieldList = new ArrayList<>();
+        for (int i = 0; i < this.vehicleList.size(); i++) {
+            if ((this.vehicleList.get(i) != null)) {
+                if (this.vehicleList.get(i).vehicle.getColor().equalsIgnoreCase(fieldName)) {
+                    fieldList.add(i);
+                }
+            }
+        }
+        return fieldList;
     }
 }
