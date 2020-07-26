@@ -5,16 +5,15 @@ import com.parkinglot.interfaces.IParkingLotStrategy;
 import com.parkinglot.model.Vehicle;
 import com.parkinglot.utility.CheckType;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LotParking {
+public class ParkingLotSystem {
     private int lotCapacity;
     private List<ParkingLot> parkingLots;
 
-    public LotParking(int lotCapacity) {
+    public ParkingLotSystem(int lotCapacity) {
         this.lotCapacity = lotCapacity;
         this.parkingLots = new ArrayList<>();
     }
@@ -46,10 +45,12 @@ public class LotParking {
         for (ParkingLot lot : this.parkingLots) {
             lot.unParkVehicle(vehicle);
         }
+        throw new ParkingLotException("Vehicle Not Found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
     public List<List<Integer>> findVehicleByColor(String color) {
-        List<List<Integer>> parkingLotsList = this.parkingLots.stream()
+        List<List<Integer>> parkingLotsList = this.parkingLots
+                .stream()
                 .map(lot -> lot.findOnFieldColor(color))
                 .collect(Collectors.toList());
         return parkingLotsList;
@@ -65,9 +66,10 @@ public class LotParking {
     }
 
     public List<List<Integer>> findVehicleByModelName(String modelName) {
-        List<List<Integer>> parkingLotsList = this.parkingLots.stream()
+        List<List<Integer>> parkingLotsList = this.parkingLots
+                .stream()
                 .map(lot -> lot.findOnFieldModelName(modelName))
                 .collect(Collectors.toList());
-        return  parkingLotsList;
+        return parkingLotsList;
     }
 }

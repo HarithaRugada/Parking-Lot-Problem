@@ -46,19 +46,14 @@ public class ParkingLot {
         return this.vehicleList.contains(parkingSlot);
     }
 
-    public boolean unParkVehicle(Vehicle vehicle) throws ParkingLotException {
-        ParkingSlot parkingSlot = new ParkingSlot(vehicle);
-        for (int slotNumber = 0; slotNumber < this.vehicleList.size(); slotNumber++) {
-            if (this.vehicleList.contains(parkingSlot)) {
-                this.vehicleList.set(slotNumber, null);
-                vehicleCount--;
-                for (IParkingLotObserver observer : parkingLotObservers) {
-                    observer.parkingAvailable();
-                }
-                return true;
-            }
+    public boolean unParkVehicle(Vehicle vehicle) {
+        boolean present = this.vehicleList
+                .stream()
+                .anyMatch(slot -> (vehicle) == slot.getVehicle());
+        for (IParkingLotObserver observer : parkingLotObservers) {
+            observer.parkingAvailable();
         }
-        throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+        return present;
     }
 
     public int initializeParkingLot() {
@@ -110,16 +105,20 @@ public class ParkingLot {
     }
 
     public List<Integer> findOnFieldColor(String color) {
-        List<Integer> fieldList = this.vehicleList.stream()
+        List<Integer> fieldList = this.vehicleList
+                .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
-                .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equalsIgnoreCase(color))
+                .filter(parkingSlot -> parkingSlot.getVehicle()
+                        .getColor()
+                        .equalsIgnoreCase(color))
                 .map(ParkingSlot::getSlot)
                 .collect(Collectors.toList());
         return fieldList;
     }
 
     public List<String> findOnTwoFields(String color, String modelName) {
-        List<String> fieldList1 = this.vehicleList.stream()
+        List<String> fieldList1 = this.vehicleList
+                .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equalsIgnoreCase(modelName))
                 .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equalsIgnoreCase(color))
@@ -131,14 +130,17 @@ public class ParkingLot {
     public List<Integer> findOnFieldModelName(String modelName) {
         List<Integer> fieldList = this.vehicleList.stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
-                .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equals(modelName))
+                .filter(parkingSlot -> parkingSlot.getVehicle()
+                        .getModelName()
+                        .equalsIgnoreCase(modelName))
                 .map(ParkingSlot::getSlot)
                 .collect(Collectors.toList());
         return fieldList;
     }
 
     public List<String> getVehiclesWhichIsParkedFrom30Min() {
-        List<String> parkingLotList = this.vehicleList.stream()
+        List<String> parkingLotList = this.vehicleList
+                .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getTime().getMinute() - LocalDateTime.now().getMinute() <= 30)
                 .map(parkingSlot -> ((parkingSlot.getSlot())) + " " + (parkingSlot.getVehicle().getModelName()) + " " + (parkingSlot.getVehicle().getColor()))
