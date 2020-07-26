@@ -3,7 +3,7 @@ package com.parkinglot.observers;
 import com.parkinglot.interfaces.IParkingLotObserver;
 
 public class ParkingOwner implements IParkingLotObserver {
-    private boolean parkingCapacity;
+    public boolean parkingCapacity;
 
     @Override
     public void parkingFull() {

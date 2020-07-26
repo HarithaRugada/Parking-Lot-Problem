@@ -1,13 +1,12 @@
-package com.parkinglot.drivertypes;
+package com.parkinglot.utility;
 
 import com.parkinglot.exception.ParkingLotException;
-import com.parkinglot.interfaces.IParkingLotOnDriverType;
 import com.parkinglot.service.ParkingLot;
+import com.parkinglot.interfaces.IParkingLotStrategy;
 
 import java.util.List;
 
-public enum HandicapDriver implements IParkingLotOnDriverType {
-    HANDICAP;
+public class HandicapDriver implements IParkingLotStrategy {
 
     @Override
     public ParkingLot getParkingLot(List<ParkingLot> parkingLots) throws ParkingLotException {

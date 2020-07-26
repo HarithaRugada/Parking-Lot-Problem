@@ -5,7 +5,6 @@ import com.parkinglot.service.ParkingLot;
 
 import java.util.List;
 
-public interface IParkingLotOnDriverType {
-
+public interface IParkingLotStrategy {
     ParkingLot getParkingLot(List<ParkingLot> parkingLots) throws ParkingLotException;
 }

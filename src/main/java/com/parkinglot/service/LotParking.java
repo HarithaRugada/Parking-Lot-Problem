@@ -1,7 +1,8 @@
 package com.parkinglot.service;
 
 import com.parkinglot.exception.ParkingLotException;
-import com.parkinglot.interfaces.IParkingLotOnDriverType;
+import com.parkinglot.interfaces.IParkingLotStrategy;
+import com.parkinglot.utility.CheckType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +24,10 @@ public class LotParking {
         return this.parkingLots.contains(parkingLot);
     }
 
-    public void parkVehicle(Object vehicle, IParkingLotOnDriverType driverType) throws ParkingLotException {
-        ParkingLot lot = driverType.getParkingLot(this.parkingLots);
-        lot.parkVehicle(vehicle, driverType);
-    }
-
-    public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
-        for (ParkingLot lot : this.parkingLots) {
-            if (lot.unParkVehicle(vehicle)) {
-                return true;
-            }
-        }
-        throw new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+    public void parkVehicle(Object vehicle, Enum type) throws ParkingLotException {
+        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(type);
+        ParkingLot lot = parkingLotStrategy.getParkingLot(this.parkingLots);
+        lot.parkVehicle(vehicle, type);
     }
 
     public boolean isVehicleParked(Object vehicle) {
@@ -46,11 +39,9 @@ public class LotParking {
         return false;
     }
 
-    public ParkingLot findVehicleLot(Object vehicle) throws ParkingLotException {
-        return this.parkingLots
-                .stream()
-                .filter(parkingLot -> parkingLot.isVehicleParked(vehicle))
-                .findFirst()
-                .orElseThrow(() -> new ParkingLotException("Vehicle not found", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND));
+    public void unParkVehicle(Object vehicle) throws ParkingLotException {
+        for (ParkingLot lot : this.parkingLots) {
+            lot.unParkVehicle(vehicle);
+        }
     }
 }
