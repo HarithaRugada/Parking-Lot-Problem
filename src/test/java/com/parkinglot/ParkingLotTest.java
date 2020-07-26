@@ -597,4 +597,22 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenParkingLot_ShouldReturnAllParkingListBefore30Min() {
+        parkingLot.setCapacity(20);
+        parkingLot.initializeParkingLot();
+        Vehicle vehicle1 = new Vehicle("black","toyota");
+        Vehicle vehicle2 = new Vehicle("white","BMW");
+        Vehicle vehicle3 = new Vehicle("red","audi");
+        try {
+            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "abc");
+            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "pqr");
+            List<String> vehicleList = parkingLot. getVehiclesWhichIsParkedFrom30Min();
+            System.out.println(vehicleList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }

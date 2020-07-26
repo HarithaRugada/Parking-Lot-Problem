@@ -136,4 +136,13 @@ public class ParkingLot {
                 .collect(Collectors.toList());
         return fieldList;
     }
+
+    public List<String> getVehiclesWhichIsParkedFrom30Min() {
+        List<String> parkingLotList = this.vehicleList.stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot.getTime().getMinute() - LocalDateTime.now().getMinute() <= 30)
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " " + (parkingSlot.getVehicle().getModelName()) + " " + (parkingSlot.getVehicle().getColor()))
+                .collect(Collectors.toList());
+        return parkingLotList;
+    }
 }
