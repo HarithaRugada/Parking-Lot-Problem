@@ -5,6 +5,7 @@ import com.parkinglot.interfaces.IParkingLotStrategy;
 import com.parkinglot.model.Vehicle;
 import com.parkinglot.utility.CheckType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,9 +48,9 @@ public class LotParking {
         }
     }
 
-    public List<List<Integer>> findVehicleByField(String color) {
+    public List<List<Integer>> findVehicleByColor(String color) {
         List<List<Integer>> parkingLotsList = this.parkingLots.stream()
-                .map(lot -> lot.findOnField(color))
+                .map(lot -> lot.findOnFieldColor(color))
                 .collect(Collectors.toList());
         return parkingLotsList;
     }
@@ -61,5 +62,12 @@ public class LotParking {
             parkingLotsList.add(onField);
         }
         return parkingLotsList;
+    }
+
+    public List<List<Integer>> findVehicleByModelName(String modelName) {
+        List<List<Integer>> parkingLotsList = this.parkingLots.stream()
+                .map(lot -> lot.findOnFieldModelName(modelName))
+                .collect(Collectors.toList());
+        return  parkingLotsList;
     }
 }

@@ -5,6 +5,7 @@ import com.parkinglot.interfaces.IParkingLotObserver;
 import com.parkinglot.model.ParkingSlot;
 import com.parkinglot.model.Vehicle;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,7 +109,7 @@ public class ParkingLot {
         return vehicleCount;
     }
 
-    public List<Integer> findOnField(String color) {
+    public List<Integer> findOnFieldColor(String color) {
         List<Integer> fieldList = this.vehicleList.stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equalsIgnoreCase(color))
@@ -125,5 +126,14 @@ public class ParkingLot {
                 .map(parkingSlot -> (parkingSlot.getAttendantName()) + "  " + (parkingSlot.getSlot()))
                 .collect(Collectors.toList());
         return fieldList1;
+    }
+
+    public List<Integer> findOnFieldModelName(String modelName) {
+        List<Integer> fieldList = this.vehicleList.stream()
+                .filter(parkingSlot -> parkingSlot.getVehicle() != null)
+                .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equals(modelName))
+                .map(ParkingSlot::getSlot)
+                .collect(Collectors.toList());
+        return fieldList;
     }
 }

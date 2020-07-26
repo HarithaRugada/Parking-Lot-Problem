@@ -1,12 +1,11 @@
 package com.parkinglot.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class ParkingSlot {
     private int slot;
     private Enum type;
-    public String time;
+    public LocalDateTime time;
     public Vehicle vehicle;
     public String attendantName;
 
@@ -16,12 +15,12 @@ public class ParkingSlot {
 
     public ParkingSlot(Vehicle vehicle) {
         this.vehicle = vehicle;
-        this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
+        this.time = LocalDateTime.now();
     }
 
     public ParkingSlot(Vehicle vehicle, Enum type, String attendantName) {
         this.vehicle = vehicle;
-        this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
+        this.time = LocalDateTime.now();
         this.type = type;
         this.attendantName = attendantName;
     }
@@ -36,6 +35,10 @@ public class ParkingSlot {
 
     public Vehicle getVehicle() {
         return vehicle;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
     }
 
     public String getAttendantName() {

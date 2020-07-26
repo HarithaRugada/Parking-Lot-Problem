@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -235,7 +234,7 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
             boolean isTimeSet = parkingLot.isTimeSet(vehicle);
             Assert.assertTrue(isTimeSet);
-            Assert.assertEquals(new ParkingSlot(vehicle).time, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
+            Assert.assertEquals(new ParkingSlot(vehicle).time, LocalDateTime.now());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -455,7 +454,7 @@ public class ParkingLotTest {
             lotParking.parkVehicle(sixthVehicle, DriverType.NORMAL, "XYZ");
             lotParking.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
             lotParking.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
-            List whiteCarList = lotParking.findVehicleByField("white");
+            List whiteCarList = lotParking.findVehicleByColor("white");
             System.out.println(whiteCarList);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -471,7 +470,7 @@ public class ParkingLotTest {
         try {
             parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "XYZ");
             parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
-            List<Integer> onField = parkingLot.findOnField("white");
+            List<Integer> onField = parkingLot.findOnFieldColor("white");
             System.out.println(onField);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -509,6 +508,91 @@ public class ParkingLotTest {
             lotParking.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
             List<List<String>> blueToyotaList = lotParking.findVehicleByTwoFields("blue", "toyota");
             System.out.println(blueToyotaList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingLot_WhenParkedBlueToyotaCar_ShouldReturnLocationAndAttendantNameAndPlateNumber() {
+        parkingLot.setCapacity(20);
+        parkingLot.initializeParkingLot();
+        Vehicle vehicle1 = new Vehicle("white", "toyota");
+        Vehicle vehicle2 = new Vehicle("blue", "BMW");
+        Vehicle vehicle3 = new Vehicle("blue", "toyota");
+        Vehicle vehicle4 = new Vehicle("white", "toyota");
+        Vehicle vehicle5 = new Vehicle("white", "BMW");
+        Vehicle vehicle6 = new Vehicle("blue", "toyota");
+        try {
+            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "asb");
+            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "pqr");
+            parkingLot.parkVehicle(vehicle4, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle5, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, "xyz");
+            List<String> blueToyotaList = parkingLot.findOnTwoFields("blue", "toyota");
+            System.out.println(blueToyotaList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //TC-14
+    @Test
+    public void givenParkingLotSystem_WhenParkedBMWVehicle_ShouldListParkedSlots() {
+        parkingLot.setCapacity(10);
+        parkingLot.initializeParkingLot();
+        lotParking.addLot(parkingLot);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.initializeParkingLot();
+        lotParking.addLot(parkingLot2);
+        ParkingLot parkingLot3 = new ParkingLot(10);
+        parkingLot3.initializeParkingLot();
+        lotParking.addLot(parkingLot3);
+
+        Vehicle vehicle1 = new Vehicle("white", "toyota");
+        Vehicle vehicle2 = new Vehicle("blue", "BMW");
+        Vehicle vehicle3 = new Vehicle("blue", "toyota");
+        Vehicle vehicle4 = new Vehicle("white", "toyota");
+        Vehicle vehicle5 = new Vehicle("white", "BMW");
+        Vehicle vehicle6 = new Vehicle("blue", "toyota");
+        Vehicle vehicle7 = new Vehicle("blue", "toyota");
+        Vehicle vehicle8 = new Vehicle("blue", "toyota");
+        try {
+            lotParking.parkVehicle(vehicle1, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle2, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle3, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle4, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle5, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle7, DriverType.NORMAL, "XYZ");
+            lotParking.parkVehicle(vehicle8, DriverType.NORMAL, "XYZ");
+            List<List<Integer>> bmwList = lotParking.findVehicleByModelName("BMW");
+            System.out.println(bmwList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingLot_WhenParkedBMWVehicle_ShouldReturnLocation() {
+        parkingLot.setCapacity(20);
+        parkingLot.initializeParkingLot();
+        Vehicle vehicle1 = new Vehicle("white", "toyota");
+        Vehicle vehicle2 = new Vehicle("blue", "BMW");
+        Vehicle vehicle3 = new Vehicle("blue", "toyota");
+        Vehicle vehicle4 = new Vehicle("white", "toyota");
+        Vehicle vehicle5 = new Vehicle("white", "BMW");
+        Vehicle vehicle6 = new Vehicle("blue", "toyota");
+        try {
+            parkingLot.parkVehicle(vehicle1, DriverType.NORMAL, "asb");
+            parkingLot.parkVehicle(vehicle2, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle3, DriverType.NORMAL, "pqr");
+            parkingLot.parkVehicle(vehicle4, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle5, DriverType.NORMAL, "xyz");
+            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, "xyz");
+            List<Integer> bmwList = parkingLot.findOnFieldModelName("BMW");
+            System.out.println(bmwList);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
