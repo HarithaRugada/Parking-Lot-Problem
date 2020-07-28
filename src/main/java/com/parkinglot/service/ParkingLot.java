@@ -112,8 +112,8 @@ public class ParkingLot {
                 .filter(parkingSlot -> parkingSlot.getVehicle()
                         .getColor()
                         .equalsIgnoreCase(color))
-                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
-                        + (parkingSlot.getVehicle().getColor()) + " "
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
+                        + (parkingSlot.getVehicle().getColor()) + " ; "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return fieldList;
@@ -125,7 +125,9 @@ public class ParkingLot {
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle().getModelName().equalsIgnoreCase(modelName))
                 .filter(parkingSlot -> parkingSlot.getVehicle().getColor().equalsIgnoreCase(color))
-                .map(parkingSlot -> (parkingSlot.getAttendantName()) + "  " + (parkingSlot.getSlot()))
+                .map(parkingSlot -> (parkingSlot.getAttendantName()) + " ; "
+                        + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
+                        + (parkingSlot.getSlot()))
                 .collect(Collectors.toList());
         return fieldList;
     }
@@ -146,8 +148,9 @@ public class ParkingLot {
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getTime().getMinute() - LocalDateTime.now().getMinute() <= 30)
-                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
-                        + (parkingSlot.getVehicle().getModelName()) + " "
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
+                        + (parkingSlot.getVehicle().getModelName()) + " ; "
+                        + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
                         + (parkingSlot.getVehicle().getColor()))
                 .collect(Collectors.toList());
         return parkingLotList;
@@ -160,9 +163,10 @@ public class ParkingLot {
                 .filter(parkingSlot -> parkingSlot
                         .getType()
                         .equals(type))
-                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
-                        + (parkingSlot.getVehicle().getModelName()) + " "
-                        + (parkingSlot.getVehicle().getColor()) + " "
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
+                        + (parkingSlot.getVehicle().getModelName()) + " ; "
+                        + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
+                        + (parkingSlot.getVehicle().getColor()) + " ; "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return parkingLotList;
@@ -172,10 +176,11 @@ public class ParkingLot {
         List<String> parkingLotList = this.vehicleList
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
-                .map(parkingSlot -> ((parkingSlot.getSlot())) + " "
-                        + (parkingSlot.getVehicle().getModelName()) + " "
-                        + (parkingSlot.getVehicle().getColor()) + " "
-                        + (parkingSlot.getType()) + " "
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
+                        + (parkingSlot.getVehicle().getModelName()) + " ; "
+                        + (parkingSlot.getVehicle().getColor()) + " ; "
+                        + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
+                        + (parkingSlot.getType()) + " ; "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return parkingLotList;
