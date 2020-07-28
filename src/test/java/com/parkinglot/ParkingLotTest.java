@@ -410,7 +410,6 @@ public class ParkingLotTest {
         Vehicle fourthVehicle = new Vehicle("blue", "Chevrolet");
         Vehicle fifthVehicle = new Vehicle("blue", "Chevrolet");
         Vehicle sixthVehicle = new Vehicle("blue", "Chevrolet");
-
         try {
             parkingLotSystem.parkVehicle(vehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(new Vehicle("blue", "Chevrolet"), DriverType.HANDICAP, "XYZ");
@@ -438,14 +437,14 @@ public class ParkingLotTest {
         ParkingLot parkingLot3 = new ParkingLot(10);
         parkingLot3.initializeParkingLot();
         parkingLotSystem.addLot(parkingLot3);
-        Vehicle firstVehicle = new Vehicle("white","audi");
-        Vehicle secondVehicle = new Vehicle("black","chevrolet");
-        Vehicle thirdVehicle = new Vehicle("white","toyota");
-        Vehicle fourthVehicle = new Vehicle("blue","BMW");
-        Vehicle fifthVehicle = new Vehicle("white","Kia");
-        Vehicle sixthVehicle = new Vehicle("green","lexus");
-        Vehicle seventhVehicle = new Vehicle("white","honda");
-        Vehicle eighthVehicle = new Vehicle("white","nissan");
+        Vehicle firstVehicle = new Vehicle("white", "audi");
+        Vehicle secondVehicle = new Vehicle("black", "chevrolet");
+        Vehicle thirdVehicle = new Vehicle("white", "toyota");
+        Vehicle fourthVehicle = new Vehicle("blue", "BMW");
+        Vehicle fifthVehicle = new Vehicle("white", "Kia");
+        Vehicle sixthVehicle = new Vehicle("green", "lexus");
+        Vehicle seventhVehicle = new Vehicle("white", "honda");
+        Vehicle eighthVehicle = new Vehicle("white", "nissan");
         try {
             parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");
@@ -466,8 +465,8 @@ public class ParkingLotTest {
     public void givenParkingLotSystem_WhenParkedVehicleColorIsWhite_ShouldReturnList() {
         parkingLot.setCapacity(3);
         parkingLot.initializeParkingLot();
-        Vehicle firstVehicle = new Vehicle("white","BMW");
-        Vehicle secondVehicle = new Vehicle("black","chevrolet");
+        Vehicle firstVehicle = new Vehicle("white", "BMW");
+        Vehicle secondVehicle = new Vehicle("black", "chevrolet");
         try {
             parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, "XYZ");
             parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, "XYZ");

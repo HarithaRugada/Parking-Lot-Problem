@@ -41,7 +41,7 @@ public class ParkingSlot {
         return time;
     }
 
-    public Enum getType(){
+    public Enum getType() {
         return type;
     }
 
