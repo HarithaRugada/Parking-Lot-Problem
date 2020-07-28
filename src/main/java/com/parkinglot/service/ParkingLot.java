@@ -132,13 +132,18 @@ public class ParkingLot {
         return fieldList;
     }
 
-    public List<Integer> findOnFieldModelName(String modelName) {
-        List<Integer> fieldList = this.vehicleList.stream()
+    public List<String> findOnFieldModelName(String modelName) {
+        List<String> fieldList = this.vehicleList.stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot.getVehicle()
                         .getModelName()
                         .equalsIgnoreCase(modelName))
-                .map(ParkingSlot::getSlot)
+                .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
+                        + (parkingSlot.getVehicle().getModelName()) + " ; "
+                        + (parkingSlot.getVehicle().getColor()) + " ; "
+                        + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
+                        + (parkingSlot.getType()) + " ; "
+                        + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return fieldList;
     }

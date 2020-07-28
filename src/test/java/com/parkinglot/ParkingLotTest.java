@@ -550,12 +550,12 @@ public class ParkingLotTest {
         parkingLot3.initializeParkingLot();
         parkingLotSystem.addLot(parkingLot3);
 
-        Vehicle firstVehicle = new Vehicle("white", "toyota","AP 31 AQ 1234");
+        Vehicle firstVehicle = new Vehicle("white", "BMW","AP 31 AQ 1234");
         Vehicle secondVehicle = new Vehicle("blue", "BMW","AP 31 AQ 1234");
         Vehicle thirdVehicle = new Vehicle("blue", "toyota","AP 31 AQ 1234");
         Vehicle fourthVehicle = new Vehicle("white", "toyota","AP 31 AQ 1234");
         Vehicle fifthVehicle = new Vehicle("white", "BMW","AP 31 AQ 1234");
-        Vehicle vehicle6 = new Vehicle("blue", "toyota","AP 31 AQ 1234");
+        Vehicle vehicle6 = new Vehicle("blue", "BMW","AP 31 AQ 1234");
         Vehicle seventhVehicle = new Vehicle("blue", "toyota","AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("blue", "toyota","AP 31 AQ 1234");
         try {
@@ -567,7 +567,7 @@ public class ParkingLotTest {
             parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, "XYZ");
             parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, "XYZ");
-            List<List<Integer>> bmwList = parkingLotSystem.findVehicleByModelName("BMW");
+            List<List<String>> bmwList = parkingLotSystem.findVehicleByModelName("BMW");
             System.out.println(bmwList);
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -591,7 +591,7 @@ public class ParkingLotTest {
             parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL, "xyz");
             parkingLot.parkVehicle(fifthVehicle, DriverType.NORMAL, "xyz");
             parkingLot.parkVehicle(sixthVehicle, DriverType.NORMAL, "xyz");
-            List<Integer> bmwList = parkingLot.findOnFieldModelName("BMW");
+            List<String> bmwList = parkingLot.findOnFieldModelName("BMW");
             System.out.println(bmwList);
         } catch (ParkingLotException e) {
             e.printStackTrace();

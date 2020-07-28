@@ -66,8 +66,8 @@ public class ParkingLotSystem {
         return parkingLotsList;
     }
 
-    public List<List<Integer>> findVehicleByModelName(String modelName) {
-        List<List<Integer>> parkingLotsList = this.parkingLots
+    public List<List<String>> findVehicleByModelName(String modelName) {
+        List<List<String>> parkingLotsList = this.parkingLots
                 .stream()
                 .map(lot -> lot.findOnFieldModelName(modelName))
                 .collect(Collectors.toList());
