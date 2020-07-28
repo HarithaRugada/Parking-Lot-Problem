@@ -82,7 +82,7 @@ public class ParkingLot {
                 return slot;
             }
         }
-        throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
+        throw new ParkingLotException("Parking lot is full", ParkingLotException.ExceptionType.PARKING_FULL);
     }
 
     public int findVehicleLot(Vehicle vehicle) throws ParkingLotException {

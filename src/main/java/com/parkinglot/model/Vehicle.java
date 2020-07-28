@@ -4,10 +4,6 @@ public class Vehicle {
     private String color;
     private String modelName;
 
-    public Vehicle(String color) {
-        this.color = color;
-    }
-
     public Vehicle(String color, String modelName) {
         this.color = color;
         this.modelName = modelName;
