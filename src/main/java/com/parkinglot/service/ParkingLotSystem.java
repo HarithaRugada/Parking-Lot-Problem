@@ -4,7 +4,7 @@ import com.parkinglot.enums.DriverType;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotStrategy;
 import com.parkinglot.model.Vehicle;
-import com.parkinglot.utility.CheckType;
+import com.parkinglot.utility.ParkingLotStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class ParkingLotSystem {
     }
 
     public void parkVehicle(Vehicle vehicle, Enum type, String attendantName) throws ParkingLotException {
-        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(type);
+        IParkingLotStrategy parkingLotStrategy = ParkingLotStrategy.getStrategy(type);
         ParkingLot lot = parkingLotStrategy.getParkingLot(this.parkingLots);
         lot.parkVehicle(vehicle, type, attendantName);
     }

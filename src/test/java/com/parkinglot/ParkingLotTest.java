@@ -7,7 +7,7 @@ import com.parkinglot.model.ParkingSlot;
 import com.parkinglot.model.Vehicle;
 import com.parkinglot.observers.AirportSecurity;
 import com.parkinglot.observers.ParkingOwner;
-import com.parkinglot.utility.CheckType;
+import com.parkinglot.utility.ParkingLotStrategy;
 import com.parkinglot.service.ParkingLotSystem;
 import com.parkinglot.service.ParkingLot;
 import com.parkinglot.interfaces.IParkingLotStrategy;
@@ -363,7 +363,7 @@ public class ParkingLotTest {
     //TC-10
     @Test
     public void givenParkingLotSystem_WhenDriverTypeIsHandicap_ShouldGiveNearestLot() {
-        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(DriverType.HANDICAP);
+        IParkingLotStrategy parkingLotStrategy = ParkingLotStrategy.getStrategy(DriverType.HANDICAP);
         List<ParkingLot> parkingLots1 = new ArrayList<>();
         ParkingLot parkingLot12 = new ParkingLot(1);
         parkingLot12.setCapacity(10);
@@ -379,7 +379,7 @@ public class ParkingLotTest {
 
     @Test
     public void givenParkingLotSystem_WhenDriverTypeIsNormal_ShouldReturnTheFirstEmptySlot() {
-        IParkingLotStrategy parkingLotStrategy = CheckType.typeImplementation(DriverType.NORMAL);
+        IParkingLotStrategy parkingLotStrategy = ParkingLotStrategy.getStrategy(DriverType.NORMAL);
         List<ParkingLot> parkingLots1 = new ArrayList<>();
         ParkingLot parkingLot12 = new ParkingLot(1);
         parkingLot12.setCapacity(10);
