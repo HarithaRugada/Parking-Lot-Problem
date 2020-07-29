@@ -446,14 +446,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("white", "honda", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("white", "nissan", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List whiteCarList = parkingLotSystem.findVehicleByColor("white");
             System.out.println(whiteCarList);
         } catch (ParkingLotException e) {
@@ -468,8 +468,8 @@ public class ParkingLotTest {
         Vehicle firstVehicle = new Vehicle("white", "BMW", "AP 31 AQ 1234");
         Vehicle secondVehicle = new Vehicle("black", "chevrolet", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<String> onField = parkingLot.findOnFieldColor("white");
             System.out.println(onField);
         } catch (ParkingLotException e) {
@@ -498,14 +498,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<List<String>> blueToyotaList = parkingLotSystem.findVehicleByTwoFields("blue", "toyota");
             System.out.println(blueToyotaList);
         } catch (ParkingLotException e) {
@@ -524,12 +524,12 @@ public class ParkingLotTest {
         Vehicle fifthVehicle = new Vehicle("white", "BMW", "AP 31 AQ 1234");
         Vehicle vehicle6 = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "asb");
-            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "pqr");
-            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL,VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "asb");
+            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "pqr");
+            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(vehicle6, DriverType.NORMAL, VehicleType.SMALL, "xyz");
             List<String> blueToyotaList = parkingLot.findOnTwoFields("blue", "toyota");
             System.out.println(blueToyotaList);
         } catch (ParkingLotException e) {
@@ -559,14 +559,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL,"XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(vehicle6, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<List<String>> bmwList = parkingLotSystem.findVehicleByModelName("BMW");
             System.out.println(bmwList);
         } catch (ParkingLotException e) {
@@ -585,12 +585,12 @@ public class ParkingLotTest {
         Vehicle fifthVehicle = new Vehicle("white", "BMW", "AP 31 AQ 1234");
         Vehicle sixthVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "asb");
-            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "pqr");
-            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "asb");
+            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "pqr");
+            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
             List<String> bmwList = parkingLot.findOnFieldModelName("BMW");
             System.out.println(bmwList);
         } catch (ParkingLotException e) {
@@ -619,14 +619,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("red", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<List<String>> vehicleList = parkingLotSystem.findVehicleParkedLast30Minutes();
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
@@ -642,9 +642,9 @@ public class ParkingLotTest {
         Vehicle secondVehicle = new Vehicle("white", "BMW", "AP 31 AQ 1234");
         Vehicle thirdVehicle = new Vehicle("red", "audi", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "abc");
-            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "pqr");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "abc");
+            parkingLot.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "pqr");
             List<String> vehicleList = parkingLot.getVehiclesWhichIsParkedFrom30Min();
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
@@ -673,14 +673,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("red", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<List<String>> vehicleList = parkingLotSystem.findVehiclesBySpecifiedType(DriverType.HANDICAP);
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
@@ -696,9 +696,9 @@ public class ParkingLotTest {
         Vehicle secondVehicle = new Vehicle("white", "BMW", "AP 31 AQ 1234");
         Vehicle thirdVehicle = new Vehicle("red", "audi", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "abc");
-            parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "pqr");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "abc");
+            parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "pqr");
             List<String> vehicleList = parkingLot.getVehiclesListOfSpecifiedType(DriverType.HANDICAP);
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
@@ -727,14 +727,14 @@ public class ParkingLotTest {
         Vehicle seventhVehicle = new Vehicle("blue", "toyota", "AP 31 AQ 1234");
         Vehicle eighthVehicle = new Vehicle("red", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
-            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL,VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(firstVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(secondVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(thirdVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(fifthVehicle, DriverType.HANDICAP, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(sixthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(seventhVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
+            parkingLotSystem.parkVehicle(eighthVehicle, DriverType.NORMAL, VehicleType.SMALL, "XYZ");
             List<List<String>> vehicleList = parkingLotSystem.findAllVehicles();
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
@@ -751,10 +751,10 @@ public class ParkingLotTest {
         Vehicle thirdVehicle = new Vehicle("red", "audi", "AP 31 AQ 1234");
         Vehicle fourthVehicle = new Vehicle("white", "toyota", "AP 31 AQ 1234");
         try {
-            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL,VehicleType.SMALL, "abc");
-            parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP,VehicleType.SMALL, "xyz");
-            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL,VehicleType.SMALL, "pqr");
-            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL,VehicleType.SMALL, "def");
+            parkingLot.parkVehicle(firstVehicle, DriverType.NORMAL, VehicleType.SMALL, "abc");
+            parkingLot.parkVehicle(secondVehicle, DriverType.HANDICAP, VehicleType.SMALL, "xyz");
+            parkingLot.parkVehicle(thirdVehicle, DriverType.NORMAL, VehicleType.SMALL, "pqr");
+            parkingLot.parkVehicle(fourthVehicle, DriverType.NORMAL, VehicleType.SMALL, "def");
             List<String> vehicleList = parkingLot.getCompleteVehiclesList();
             System.out.println(vehicleList);
         } catch (ParkingLotException e) {
