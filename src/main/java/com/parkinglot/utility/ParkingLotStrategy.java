@@ -5,12 +5,12 @@ import com.parkinglot.enums.VehicleType;
 import com.parkinglot.interfaces.IParkingLotStrategy;
 
 public class ParkingLotStrategy {
-    public static IParkingLotStrategy getStrategy(Enum type) {
-        if (type.equals(DriverType.HANDICAP)) {
-            return new HandicapDriver();
-        } else if (type.equals(VehicleType.LARGE)) {
-            return new LargeVehicle();
+    public static IParkingLotStrategy getStrategy(DriverType driverType,VehicleType vehicleType) {
+        if (driverType.equals(DriverType.HANDICAP)) {
+            return new HandicapDriverStrategy();
+        } else if (vehicleType.equals(VehicleType.LARGE)) {
+            return new LargeVehicleStrategy();
         }
-        return new NormalDriver();
+        return new NormalDriverStrategy();
     }
 }

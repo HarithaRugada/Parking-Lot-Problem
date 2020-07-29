@@ -1,6 +1,7 @@
 package com.parkinglot.service;
 
 import com.parkinglot.enums.DriverType;
+import com.parkinglot.enums.VehicleType;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotStrategy;
 import com.parkinglot.model.Vehicle;
@@ -27,10 +28,10 @@ public class ParkingLotSystem {
         return this.parkingLots.contains(parkingLot);
     }
 
-    public void parkVehicle(Vehicle vehicle, Enum type, String attendantName) throws ParkingLotException {
-        IParkingLotStrategy parkingLotStrategy = ParkingLotStrategy.getStrategy(type);
+    public void parkVehicle(Vehicle vehicle, DriverType driverType, VehicleType vehicleType, String attendantName) throws ParkingLotException {
+        IParkingLotStrategy parkingLotStrategy = ParkingLotStrategy.getStrategy(driverType, vehicleType);
         ParkingLot lot = parkingLotStrategy.getParkingLot(this.parkingLots);
-        lot.parkVehicle(vehicle, type, attendantName);
+        lot.parkVehicle(vehicle, driverType, vehicleType, attendantName);
     }
 
     public boolean isVehicleParked(Vehicle vehicle) {

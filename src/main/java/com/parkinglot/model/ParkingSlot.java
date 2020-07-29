@@ -1,10 +1,14 @@
 package com.parkinglot.model;
 
+import com.parkinglot.enums.DriverType;
+import com.parkinglot.enums.VehicleType;
+
 import java.time.LocalDateTime;
 
 public class ParkingSlot {
     private int slot;
-    private Enum type;
+    private DriverType driverType;
+    private VehicleType vehicleType;
     public LocalDateTime time;
     public Vehicle vehicle;
     public String attendantName;
@@ -18,10 +22,11 @@ public class ParkingSlot {
         this.time = LocalDateTime.now();
     }
 
-    public ParkingSlot(Vehicle vehicle, Enum type, String attendantName) {
+    public ParkingSlot(Vehicle vehicle, DriverType driverType, VehicleType vehicleType, String attendantName) {
         this.vehicle = vehicle;
         this.time = LocalDateTime.now();
-        this.type = type;
+        this.driverType = driverType;
+        this.vehicleType = vehicleType;
         this.attendantName = attendantName;
     }
 
@@ -41,8 +46,12 @@ public class ParkingSlot {
         return time;
     }
 
-    public Enum getType() {
-        return type;
+    public DriverType getDriverType() {
+        return driverType;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 
     public String getAttendantName() {

@@ -6,7 +6,7 @@ import com.parkinglot.interfaces.IParkingLotStrategy;
 
 import java.util.List;
 
-public class HandicapDriver implements IParkingLotStrategy {
+public class HandicapDriverStrategy implements IParkingLotStrategy {
 
     @Override
     public ParkingLot getParkingLot(List<ParkingLot> parkingLots) throws ParkingLotException {

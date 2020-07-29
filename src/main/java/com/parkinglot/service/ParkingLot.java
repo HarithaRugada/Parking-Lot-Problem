@@ -1,6 +1,7 @@
 package com.parkinglot.service;
 
 import com.parkinglot.enums.DriverType;
+import com.parkinglot.enums.VehicleType;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.interfaces.IParkingLotObserver;
 import com.parkinglot.model.ParkingSlot;
@@ -32,10 +33,10 @@ public class ParkingLot {
         this.parkingLotObservers.add(observer);
     }
 
-    public void parkVehicle(Vehicle vehicle, Enum type, String attendantName) throws ParkingLotException {
+    public void parkVehicle(Vehicle vehicle, DriverType driverType, VehicleType vehicleType, String attendantName) throws ParkingLotException {
         if (isVehicleParked(vehicle))
             throw new ParkingLotException("Already Parked", ParkingLotException.ExceptionType.ALREADY_PARKED);
-        ParkingSlot parkingSlot = new ParkingSlot(vehicle, type, attendantName);
+        ParkingSlot parkingSlot = new ParkingSlot(vehicle, driverType, vehicleType, attendantName);
         int emptySlot = getParkingSlot(vehicle);
         parkingSlot.setSlot(emptySlot);
         this.vehicleList.set(emptySlot, parkingSlot);
@@ -142,7 +143,8 @@ public class ParkingLot {
                         + (parkingSlot.getVehicle().getModelName()) + " ; "
                         + (parkingSlot.getVehicle().getColor()) + " ; "
                         + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
-                        + (parkingSlot.getType()) + " ; "
+                        + (parkingSlot.getDriverType()) + " ; "
+                        + (parkingSlot.getVehicleType()) + " ; "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return fieldList;
@@ -161,13 +163,13 @@ public class ParkingLot {
         return parkingLotList;
     }
 
-    public List<String> getVehiclesListOfSpecifiedType(DriverType type) {
+    public List<String> getVehiclesListOfSpecifiedType(DriverType driverType) {
         List<String> parkingLotList = this.vehicleList
                 .stream()
                 .filter(parkingSlot -> parkingSlot.getVehicle() != null)
                 .filter(parkingSlot -> parkingSlot
-                        .getType()
-                        .equals(type))
+                        .getDriverType()
+                        .equals(driverType))
                 .map(parkingSlot -> ((parkingSlot.getSlot())) + " ; "
                         + (parkingSlot.getVehicle().getModelName()) + " ; "
                         + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
@@ -185,7 +187,8 @@ public class ParkingLot {
                         + (parkingSlot.getVehicle().getModelName()) + " ; "
                         + (parkingSlot.getVehicle().getColor()) + " ; "
                         + (parkingSlot.getVehicle().getPlateNumber()) + " ; "
-                        + (parkingSlot.getType()) + " ; "
+                        + (parkingSlot.getDriverType()) + " ; "
+                        + (parkingSlot.getVehicleType()) + " ; "
                         + (parkingSlot.getAttendantName()))
                 .collect(Collectors.toList());
         return parkingLotList;

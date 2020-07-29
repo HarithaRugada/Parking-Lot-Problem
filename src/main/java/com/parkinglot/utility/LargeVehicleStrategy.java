@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class NormalDriver implements IParkingLotStrategy {
+public class LargeVehicleStrategy implements IParkingLotStrategy {
     @Override
     public ParkingLot getParkingLot(List<ParkingLot> parkingLots) {
         List<ParkingLot> parkingLotsList = new ArrayList<>(parkingLots);
-        parkingLotsList.sort(Comparator.comparing(list -> list.getSlotList().size(), Comparator.reverseOrder()));
+        parkingLotsList.sort(Comparator.comparing(ParkingLot::getVehicleCount));
         return parkingLotsList.get(0);
     }
 }
